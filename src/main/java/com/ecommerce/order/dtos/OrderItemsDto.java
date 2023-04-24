@@ -8,6 +8,9 @@ public class OrderItemsDto {
     private String name;
     private BigDecimal price;
 
+    public OrderItemsDto() {
+    }
+
     public String getProductId() {
         return productId;
     }
@@ -18,5 +21,17 @@ public class OrderItemsDto {
 
     public BigDecimal getPrice() {
         return price;
+    }
+
+    public void setProductId(String productId) {
+        this.productId = productId;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
     }
 }
