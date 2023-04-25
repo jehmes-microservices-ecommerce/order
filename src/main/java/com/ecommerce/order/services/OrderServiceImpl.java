@@ -20,15 +20,16 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void save(Order order) {
-            orderRepository.save(order);
+    public Order save(Order order) {
+        return orderRepository.save(order);
     }
 
     @Override
     public Order saveAndPublish(OrderDto orderDto) {
         var order = new Order();
         BeanUtils.copyProperties(orderDto, order);
-        this.save(order);
-        return orderEventPublisher.publish(order);
+        order = this.save(order);
+        orderEventPublisher.publish(orderDto);
+        return order;
     }
 }

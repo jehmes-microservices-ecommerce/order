@@ -22,9 +22,8 @@ public class OrderEventPublisher {
         this.rabbitTemplate = rabbitTemplate;
     }
 
-    public Order publish(Order order) {
-        rabbitTemplate.convertAndSend(orderExchange, "order-payment-request", order);
-        return order;
+    public void publish(OrderDto orderDto) {
+        rabbitTemplate.convertAndSend(orderExchange, "order-payment-request", orderDto);
     }
 
 }

@@ -1,21 +1,23 @@
 package com.ecommerce.order.dtos;
 
-import org.springframework.data.annotation.Transient;
-
 import java.math.BigDecimal;
 import java.util.List;
 
 public class OrderDto {
-    private String id;
-    @Transient
+    private String orderId;
     private List<OrderItemsDto> orderItems;
     private BigDecimal amount;
+    private PaymentDto paymentDto;
 
     public OrderDto() {
     }
 
-    public String getId() {
-        return id;
+    public String getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(String orderId) {
+        this.orderId = orderId;
     }
 
     public List<OrderItemsDto> getOrderItems() {
@@ -26,9 +28,6 @@ public class OrderDto {
         return amount;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
 
     public void setOrderItems(List<OrderItemsDto> orderItems) {
         this.orderItems = orderItems;
@@ -36,5 +35,13 @@ public class OrderDto {
 
     public void setAmount(BigDecimal amount) {
         this.amount = amount;
+    }
+
+    public PaymentDto getPaymentDto() {
+        return paymentDto;
+    }
+
+    public void setPaymentDto(PaymentDto paymentDto) {
+        this.paymentDto = paymentDto;
     }
 }
