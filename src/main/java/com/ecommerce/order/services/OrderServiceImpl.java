@@ -2,7 +2,7 @@ package com.ecommerce.order.services;
 
 import com.ecommerce.order.dtos.OrderDto;
 import com.ecommerce.order.models.Order;
-import com.ecommerce.order.publisher.OrderEventPublisher;
+import com.ecommerce.order.publisher.OrderPublisher;
 import com.ecommerce.order.repositories.OrderRepository;
 import com.ecommerce.order.services.interfaces.OrderService;
 import org.springframework.beans.BeanUtils;
@@ -12,11 +12,11 @@ import org.springframework.stereotype.Service;
 public class OrderServiceImpl implements OrderService {
 
     private final OrderRepository orderRepository;
-    private final OrderEventPublisher orderEventPublisher;
+    private final OrderPublisher orderPublisher;
 
-    public OrderServiceImpl(OrderRepository orderRepository, OrderEventPublisher orderEventPublisher) {
+    public OrderServiceImpl(OrderRepository orderRepository, OrderPublisher orderPublisher) {
         this.orderRepository = orderRepository;
-        this.orderEventPublisher = orderEventPublisher;
+        this.orderPublisher = orderPublisher;
     }
 
     @Override
@@ -29,7 +29,7 @@ public class OrderServiceImpl implements OrderService {
         var order = new Order();
         BeanUtils.copyProperties(orderDto, order);
         order = this.save(order);
-        orderEventPublisher.publish(orderDto);
+        orderPublisher.publish(orderDto);
         return order;
     }
 }

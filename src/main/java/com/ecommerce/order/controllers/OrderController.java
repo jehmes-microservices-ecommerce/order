@@ -1,10 +1,7 @@
 package com.ecommerce.order.controllers;
 
 import com.ecommerce.order.dtos.OrderDto;
-import com.ecommerce.order.models.Order;
-import com.ecommerce.order.publisher.OrderEventPublisher;
 import com.ecommerce.order.services.interfaces.OrderService;
-import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;

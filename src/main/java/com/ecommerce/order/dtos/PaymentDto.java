@@ -1,8 +1,10 @@
 package com.ecommerce.order.dtos;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 public class PaymentDto {
+    private UUID paymentId;
     private String cardNumber;
     private LocalDateTime localDateTime;
 
@@ -28,5 +30,13 @@ public class PaymentDto {
 
     public void setLocalDateTime(LocalDateTime localDateTime) {
         this.localDateTime = localDateTime;
+    }
+
+    public UUID getPaymentId() {
+        return paymentId;
+    }
+
+    public void setPaymentId(UUID paymentId) {
+        this.paymentId = paymentId;
     }
 }
