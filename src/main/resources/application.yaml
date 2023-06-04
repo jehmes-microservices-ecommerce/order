@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: order-ms
+    name: order
   rabbitmq:
     host: localhost
     port: 5672
@@ -31,7 +31,9 @@ ecommerce:
   broker:
     exchange:
       orderEvent: ecommerce-order
+      userEvent: ecommerce-userevent
     queue:
       paymentReply: order-payment-reply
+      userEvent: order-user-event
     key:
       bindOrderReply: order-payment-reply
