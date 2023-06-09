@@ -7,9 +7,11 @@ import java.util.List;
 
 public class OrderDto {
     private String orderId;
+    private UserDto userDto;
     private List<OrderItemsDto> orderItems;
-    private BigDecimal amount;
     private PaymentDto paymentDto;
+    private BigDecimal totalPrice;
+    private boolean productsInStock;
     private PaymentStatus paymentStatus;
 
     public OrderDto() {
@@ -23,21 +25,20 @@ public class OrderDto {
         this.orderId = orderId;
     }
 
+    public UserDto getUserDto() {
+        return userDto;
+    }
+
+    public void setUserDto(UserDto userDto) {
+        this.userDto = userDto;
+    }
+
     public List<OrderItemsDto> getOrderItems() {
         return orderItems;
     }
 
-    public BigDecimal getAmount() {
-        return amount;
-    }
-
-
     public void setOrderItems(List<OrderItemsDto> orderItems) {
         this.orderItems = orderItems;
-    }
-
-    public void setAmount(BigDecimal amount) {
-        this.amount = amount;
     }
 
     public PaymentDto getPaymentDto() {
@@ -46,6 +47,22 @@ public class OrderDto {
 
     public void setPaymentDto(PaymentDto paymentDto) {
         this.paymentDto = paymentDto;
+    }
+
+    public BigDecimal getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(BigDecimal totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
+    public boolean isProductsInStock() {
+        return productsInStock;
+    }
+
+    public void setProductsInStock(boolean productsInStock) {
+        this.productsInStock = productsInStock;
     }
 
     public PaymentStatus getPaymentStatus() {

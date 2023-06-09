@@ -1,10 +1,10 @@
 package com.ecommerce.order.models;
 
-import com.ecommerce.order.dtos.OrderItemsDto;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -13,13 +13,12 @@ public class Order {
 
     @Id
     private String orderId;
-    private List<OrderItemsDto> orderItems;
-    private BigDecimal amount;
-
-    public Order(List<OrderItemsDto> orderItems, BigDecimal amount) {
-        this.orderItems = orderItems;
-        this.amount = amount;
-    }
+    private User user;
+    private LocalDateTime requestDate;
+    private List<UUID> orderItemsId;
+    private UUID paymentId;
+    private BigDecimal totalPrice;
+    private String orderStatus;
 
     public Order() {
     }
@@ -28,19 +27,55 @@ public class Order {
         return orderId;
     }
 
-    public List<OrderItemsDto> getOrderItems() {
-        return orderItems;
+    public void setOrderId(String orderId) {
+        this.orderId = orderId;
     }
 
-    public BigDecimal getAmount() {
-        return amount;
+    public User getUser() {
+        return user;
     }
 
-    public void setOrderItems(List<OrderItemsDto> orderItems) {
-        this.orderItems = orderItems;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public void setAmount(BigDecimal amount) {
-        this.amount = amount;
+    public LocalDateTime getRequestDate() {
+        return requestDate;
+    }
+
+    public void setRequestDate(LocalDateTime requestDate) {
+        this.requestDate = requestDate;
+    }
+
+    public List<UUID> getOrderItemsId() {
+        return orderItemsId;
+    }
+
+    public void setOrderItemsId(List<UUID> orderItemsId) {
+        this.orderItemsId = orderItemsId;
+    }
+
+    public UUID getPaymentId() {
+        return paymentId;
+    }
+
+    public void setPaymentId(UUID paymentId) {
+        this.paymentId = paymentId;
+    }
+
+    public BigDecimal getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(BigDecimal totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
+    public String getOrderStatus() {
+        return orderStatus;
+    }
+
+    public void setOrderStatus(String orderStatus) {
+        this.orderStatus = orderStatus;
     }
 }
