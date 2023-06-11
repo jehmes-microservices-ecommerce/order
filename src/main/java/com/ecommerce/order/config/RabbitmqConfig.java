@@ -14,8 +14,10 @@ import org.springframework.context.annotation.Configuration;
 public class RabbitmqConfig {
 
     private final CachingConnectionFactory cachingConnectionFactory;
-    @Value(value = "${ecommerce.broker.exchange.orderEvent}")
-    private String orderExchange;
+    @Value(value = "${ecommerce.broker.exchange.orderProductCommand}")
+    private String orderProductExchange;
+    @Value(value = "${ecommerce.broker.exchange.orderPaymentCommand}")
+    private String orderPaymentExchange;
 
     public RabbitmqConfig(CachingConnectionFactory cachingConnectionFactory) {
         this.cachingConnectionFactory = cachingConnectionFactory;
@@ -35,7 +37,12 @@ public class RabbitmqConfig {
     }
 
     @Bean
-    public TopicExchange topicExchange() {
-        return new TopicExchange(orderExchange);
+    public TopicExchange topicProductExchange() {
+        return new TopicExchange(orderProductExchange);
+    }
+
+    @Bean
+    public TopicExchange topicPaymentExchange() {
+        return new TopicExchange(orderPaymentExchange);
     }
 }

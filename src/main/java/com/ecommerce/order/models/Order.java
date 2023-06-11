@@ -1,5 +1,7 @@
 package com.ecommerce.order.models;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -9,13 +11,15 @@ import java.util.List;
 import java.util.UUID;
 
 @Document(collection = "TB_ORDER")
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Order {
 
     @Id
     private String orderId;
     private User user;
+    @CreatedDate
     private LocalDateTime requestDate;
-    private List<UUID> orderItemsId;
+    private List<String> orderItemsId;
     private UUID paymentId;
     private BigDecimal totalPrice;
     private String orderStatus;
@@ -47,11 +51,11 @@ public class Order {
         this.requestDate = requestDate;
     }
 
-    public List<UUID> getOrderItemsId() {
+    public List<String> getOrderItemsId() {
         return orderItemsId;
     }
 
-    public void setOrderItemsId(List<UUID> orderItemsId) {
+    public void setOrderItemsId(List<String> orderItemsId) {
         this.orderItemsId = orderItemsId;
     }
 

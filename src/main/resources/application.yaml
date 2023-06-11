@@ -1,5 +1,5 @@
 server:
-  port: 8086
+  port: 8087
 
 spring:
   application:
@@ -30,10 +30,15 @@ logging:
 ecommerce:
   broker:
     exchange:
-      orderEvent: ecommerce-order
+      orderProductCommand: order-product
+      orderPaymentCommand: order-payment
       userEvent: ecommerce-userevent
     queue:
-      paymentReply: order-payment-reply
+      orderProductReply: order-product-reply
+      orderPaymentReply: order-payment-reply
       userEvent: order-user-event
     key:
-      bindOrderReply: order-payment-reply
+      bindOrderProductRequestCommand: order-product-request
+      bindOrderPaymentRequestCommand: order-payment-request
+      bindOrderProductReplyCommand: order-product-reply
+      bindOrderPaymentReplyCommand: order-payment-reply

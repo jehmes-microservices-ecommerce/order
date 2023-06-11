@@ -10,17 +10,15 @@ import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Component;
 
 @Component
-public class PaymentConsumer {
-
+public class PaymentReplyConsumer {
 
     @RabbitListener(bindings = @QueueBinding(
-            value = @Queue(value = "${ecommerce.broker.queue.paymentReply}", durable = "true"),
-            exchange = @Exchange(value = "${ecommerce.broker.exchange.orderEvent}", type = ExchangeTypes.TOPIC, ignoreDeclarationExceptions = "true"),
-            key = "${ecommerce.broker.key.bindOrderReply}"
-    ))
-    public void listenPaymentEvent(@Payload OrderDto orderDto) {
+            value = @Queue(value = "${ecommerce.broker.queue.orderPaymentReply}", durable = "true"),
+            exchange = @Exchange(value = "${ecommerce.broker.exchange.orderPaymentCommand}", type = ExchangeTypes.TOPIC, ignoreDeclarationExceptions = "true"),
+            key = "${ecommerce.broker.key.bindOrderPaymentReplyCommand}"))
+    public void listenPaymentCommand(@Payload OrderDto orderDto) {
         System.out.println(orderDto);
-
+        //TODO
     }
 
 }

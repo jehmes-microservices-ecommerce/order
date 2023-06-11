@@ -1,5 +1,6 @@
 package com.ecommerce.order.dtos;
 
+import com.ecommerce.order.enums.UserType;
 import com.ecommerce.order.models.User;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonView;

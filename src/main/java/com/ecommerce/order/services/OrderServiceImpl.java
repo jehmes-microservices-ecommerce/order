@@ -1,8 +1,11 @@
 package com.ecommerce.order.services;
 
 import com.ecommerce.order.dtos.OrderDto;
+import com.ecommerce.order.enums.OrderExceptionMessage;
+import com.ecommerce.order.enums.OrderStatus;
+import com.ecommerce.order.exceptions.OrderException;
 import com.ecommerce.order.models.Order;
-import com.ecommerce.order.publisher.OrderPublisher;
+import com.ecommerce.order.publisher.OrderProductPublisher;
 import com.ecommerce.order.repositories.OrderRepository;
 import com.ecommerce.order.services.interfaces.OrderService;
 import org.springframework.beans.BeanUtils;
@@ -12,11 +15,11 @@ import org.springframework.stereotype.Service;
 public class OrderServiceImpl implements OrderService {
 
     private final OrderRepository orderRepository;
-    private final OrderPublisher orderPublisher;
+    private final OrderProductPublisher orderProductPublisher;
 
-    public OrderServiceImpl(OrderRepository orderRepository, OrderPublisher orderPublisher) {
+    public OrderServiceImpl(OrderRepository orderRepository, OrderProductPublisher orderProductPublisher) {
         this.orderRepository = orderRepository;
-        this.orderPublisher = orderPublisher;
+        this.orderProductPublisher = orderProductPublisher;
     }
 
     @Override
@@ -26,10 +29,18 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public Order saveAndPublish(OrderDto orderDto) {
-        var order = new Order();
-        BeanUtils.copyProperties(orderDto, order);
+        var order = orderDto.convertToModel();
+        order.setOrderStatus(OrderStatus.REQUESTED.toString());
         order = this.save(order);
-        orderPublisher.publish(orderDto);
+        orderDto.setOrderId(order.getOrderId());
+        orderProductPublisher.publish(orderDto);
         return order;
+    }
+
+    @Override
+    public void update(OrderDto orderDto) throws OrderException {
+        var order = orderDto.convertToModel();
+        orderRepository.findById(order.getOrderId()).orElseThrow(() -> new OrderException(OrderExceptionMessage.NOT_FOUND.getMessage()));
+        orderRepository.save(order);
     }
 }

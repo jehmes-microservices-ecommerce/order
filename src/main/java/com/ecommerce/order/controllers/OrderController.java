@@ -4,6 +4,7 @@ import com.ecommerce.order.dtos.OrderDto;
 import com.ecommerce.order.services.interfaces.OrderService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,7 +21,7 @@ public class OrderController {
     }
 
     @PostMapping
-    public ResponseEntity<Object> execute(@RequestBody OrderDto orderDto) {
+    public ResponseEntity<Object> execute(@RequestBody @Validated OrderDto orderDto) {
         return ResponseEntity.status(HttpStatus.OK).body(orderService.saveAndPublish(orderDto));
     }
 }

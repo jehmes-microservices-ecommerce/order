@@ -1,15 +1,24 @@
 package com.ecommerce.order.dtos;
 
 import com.ecommerce.order.enums.PaymentStatus;
+import com.ecommerce.order.models.Order;
+import jakarta.validation.constraints.NotNull;
+import org.springframework.beans.BeanUtils;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.UUID;
+import java.util.stream.Collectors;
 
 public class OrderDto {
     private String orderId;
-    private UserDto userDto;
+    @NotNull
+    private UserDto user;
+    @NotNull
     private List<OrderItemsDto> orderItems;
+    @NotNull
     private PaymentDto paymentDto;
+    @NotNull
     private BigDecimal totalPrice;
     private boolean productsInStock;
     private PaymentStatus paymentStatus;
@@ -25,12 +34,12 @@ public class OrderDto {
         this.orderId = orderId;
     }
 
-    public UserDto getUserDto() {
-        return userDto;
+    public UserDto getUser() {
+        return user;
     }
 
-    public void setUserDto(UserDto userDto) {
-        this.userDto = userDto;
+    public void setUser(UserDto user) {
+        this.user = user;
     }
 
     public List<OrderItemsDto> getOrderItems() {
@@ -71,5 +80,13 @@ public class OrderDto {
 
     public void setPaymentStatus(PaymentStatus paymentStatus) {
         this.paymentStatus = paymentStatus;
+    }
+
+    public Order convertToModel() {
+        var order = new Order();
+        BeanUtils.copyProperties(this, order);
+        List<String> ordersItems = this.getOrderItems().stream().map(OrderItemsDto::productId).toList();
+        order.setOrderItemsId(ordersItems);
+        return order;
     }
 }
