@@ -17,12 +17,12 @@ public class Order {
     @Id
     private String orderId;
     private User user;
-    @CreatedDate
     private LocalDateTime requestDate;
     private List<String> orderItemsId;
     private UUID paymentId;
     private BigDecimal totalPrice;
     private String orderStatus;
+    private String message;
 
     public Order() {
     }
@@ -81,5 +81,13 @@ public class Order {
 
     public void setOrderStatus(String orderStatus) {
         this.orderStatus = orderStatus;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 }

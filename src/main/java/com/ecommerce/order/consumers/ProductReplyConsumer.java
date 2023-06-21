@@ -32,12 +32,7 @@ public class ProductReplyConsumer {
     public void listenProductCommand(@Payload OrderDto orderDto) {
         try {
             if (!orderDto.isProductsInStock()) {
-                orderDto.setPaymentStatus(PaymentStatus.FAILED);
-                try {
-                    orderService.update(orderDto);
-                } catch (OrderException e) {
-                    e.printStackTrace();
-                }
+                orderService.update(orderDto);
                 throw new OrderException(ProductOutOfBoundsException.OUT_OF_BOUNDS.getMessage());
             }
             orderPaymentPublisher.publish(orderDto);

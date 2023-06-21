@@ -8,7 +8,6 @@ import com.ecommerce.order.models.Order;
 import com.ecommerce.order.publisher.OrderProductPublisher;
 import com.ecommerce.order.repositories.OrderRepository;
 import com.ecommerce.order.services.interfaces.OrderService;
-import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 @Service

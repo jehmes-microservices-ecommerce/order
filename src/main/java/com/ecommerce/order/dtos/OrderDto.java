@@ -6,9 +6,9 @@ import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.BeanUtils;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.List;
-import java.util.UUID;
-import java.util.stream.Collectors;
 
 public class OrderDto {
     private String orderId;
@@ -22,6 +22,8 @@ public class OrderDto {
     private BigDecimal totalPrice;
     private boolean productsInStock;
     private PaymentStatus paymentStatus;
+    private String message;
+    private String orderStatus;
 
     public OrderDto() {
     }
@@ -82,11 +84,29 @@ public class OrderDto {
         this.paymentStatus = paymentStatus;
     }
 
+    public String getOrderStatus() {
+        return orderStatus;
+    }
+
+    public void setOrderStatus(String orderStatus) {
+        this.orderStatus = orderStatus;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
     public Order convertToModel() {
         var order = new Order();
         BeanUtils.copyProperties(this, order);
         List<String> ordersItems = this.getOrderItems().stream().map(OrderItemsDto::productId).toList();
         order.setOrderItemsId(ordersItems);
+        order.setUser(this.getUser().convertToUser());
+        order.setRequestDate(LocalDateTime.now(ZoneId.of("UTC")));
         return order;
     }
 }
